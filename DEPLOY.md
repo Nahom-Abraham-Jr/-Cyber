@@ -15,31 +15,11 @@ Vercel does **not** give away free `.com` names. The Ethiopic name **ደህን�
 
 ---
 
-## Step 1 — Push code to GitHub
+## Step 1 — Push code to GitHub ✅ Done
 
-1. Open [https://github.com/new](https://github.com/new)
-2. Repository: [Nahom-Abraham-Jr/-Cyber](https://github.com/Nahom-Abraham-Jr/-Cyber)
-3. Set to **Public** (required for free Vercel + private repos on free tier is limited)
-4. **Do not** add README, .gitignore, or license (you already have them)
-5. Click **Create repository**
+Code is live at **[github.com/Nahom-Abraham-Jr/-Cyber](https://github.com/Nahom-Abraham-Jr/-Cyber)**.
 
-In PowerShell (replace `YOUR_GITHUB_USERNAME`):
-
-```powershell
-cd "c:\Users\hp\OneDrive\Desktop\Nahom SMU project"
-
-git add cyber-app
-git remote remove origin 2>$null
-git remote add origin https://github.com/Nahom-Abraham-Jr/-Cyber.git
-
-git commit -m "Initial commit: cybersecurity awareness app"
-git branch -M main
-git push -u origin main
-```
-
-> Your Git repo root is the **Nahom SMU project** folder; the Next.js app lives in **`cyber-app/`**.
-
-GitHub will ask you to sign in (browser or Personal Access Token).
+> The Next.js app is at the **repository root** (no subfolder needed on Vercel).
 
 ---
 
@@ -51,7 +31,7 @@ GitHub will ask you to sign in (browser or Personal Access Token).
 4. **Import** the repository `-Cyber`
 5. Settings (important for this repo layout):
    - **Framework Preset:** Next.js
-   - **Root Directory:** `cyber-app` ← required (app is in a subfolder)
+   - **Root Directory:** `.` (leave as default — app is at repo root)
    - **Build Command:** `npm run build` (default)
    - **Output:** (auto)
 6. **Project Name:** `dehinet-cyber` (this becomes your `.vercel.app` URL)
@@ -93,5 +73,5 @@ Without it, breach features may be limited; the rest of the app still works.
 
 ## Troubleshooting
 
-- **Build fails on Vercel:** Set **Root Directory** to `cyber-app` (where `package.json` lives).
+- **Build fails on Vercel:** Set **Root Directory** to `.` (repo root, where `package.json` lives).
 - **Vercel CLI login error (certificate):** Use the **web dashboard** (steps above) instead of `vercel login` in the terminal.
