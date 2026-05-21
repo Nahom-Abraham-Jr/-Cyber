@@ -1,77 +1,48 @@
-# Deploy to Vercel (Free) via GitHub
+# Deploy ደህንነት to Vercel (100% checklist)
 
-Your app **builds successfully** and is ready to deploy.
+## Fastest: one click (recommended)
 
-## What you get on the free plan
+1. Click **Deploy with Vercel** in [README.md](./README.md), or run:
 
-| Option | Cost | Example |
-|--------|------|---------|
-| **Vercel subdomain** | Free | `dehinet-cyber.vercel.app` |
-| **Custom domain** `ደህንነት.com` | You must **buy** the domain (~$10–15/year) | Connect in Vercel → Domains |
+   ```powershell
+   .\deploy.ps1
+   ```
 
-Vercel does **not** give away free `.com` names. The Ethiopic name **ደህንነት** (“security”) as a `.com` must be purchased from a registrar that supports **IDN** (internationalized) domains, then linked in Vercel.
+2. Sign in with **GitHub** → authorize Vercel.
 
-**Recommended free URL:** name the Vercel project `dehinet-cyber` → **https://dehinet-cyber.vercel.app**
+3. Confirm settings:
+   - **Project Name:** `dehinet-cyber` (required — do not use `-cyber`)
+   - **Root Directory:** `.` (default)
+   - **Framework:** Next.js
 
----
-
-## Step 1 — Push code to GitHub ✅ Done
-
-Code is live at **[github.com/Nahom-Abraham-Jr/-Cyber](https://github.com/Nahom-Abraham-Jr/-Cyber)**.
-
-> The Next.js app is at the **repository root** (no subfolder needed on Vercel).
+4. Click **Deploy** → open **https://dehinet-cyber.vercel.app**
 
 ---
 
-## Step 2 — Deploy on Vercel (Hobby / free)
+## Why you saw `DEPLOYMENT_NOT_FOUND`
 
-1. Go to [https://vercel.com/signup](https://vercel.com/signup) → **Continue with GitHub**
-2. Authorize Vercel to access your GitHub account
-3. Go to [https://vercel.com/new](https://vercel.com/new)
-4. **Import** the repository `-Cyber`
-5. Settings (important for this repo layout):
-   - **Framework Preset:** Next.js
-   - **Root Directory:** `.` (leave as default — app is at repo root)
-   - **Build Command:** `npm run build` (default)
-   - **Output:** (auto)
-6. **Project Name:** `dehinet-cyber` (this becomes your `.vercel.app` URL)
-7. Click **Deploy**
-
-Wait ~2 minutes. Your site will be live at:
-
-**https://dehinet-cyber.vercel.app**
-
-Every `git push` to `main` will redeploy automatically.
+- Wrong or expired deployment link
+- Project name started with `-` (invalid URL)
+- **Root Directory** was set to `cyber-app` (old layout — now fixed at repo root)
 
 ---
 
-## Step 3 (optional) — Custom domain `ደህንነት.com`
+## Optional: auto-deploy on every push (GitHub Actions)
 
-1. **Buy** the domain from a registrar that supports Ethiopic IDN, e.g.:
-   - [Namecheap](https://www.namecheap.com) — search for `ደህንነት.com` or punycode form
-   - [GoDaddy](https://www.godaddy.com), [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/)
-2. In [Vercel Dashboard](https://vercel.com) → your project → **Settings** → **Domains**
-3. Add `ደህንነት.com` (Vercel shows DNS records)
-4. At your domain registrar, add the DNS records Vercel provides (usually `A` + `CNAME` for `www`)
-5. Wait for DNS (minutes to 48 hours). SSL is automatic on Vercel.
+1. Create a token: [vercel.com/account/tokens](https://vercel.com/account/tokens) → **Create** → copy token.
 
-**ASCII alternative** (easier and cheaper): buy `dehinet.com` or `dehinet.et` and point it the same way.
+2. On GitHub: [github.com/Nahom-Abraham-Jr/-Cyber/settings/secrets/actions](https://github.com/Nahom-Abraham-Jr/-Cyber/settings/secrets/actions) → **New repository secret**:
+   - Name: `VERCEL_TOKEN`
+   - Value: your token
 
----
+3. First deploy from the dashboard (steps above), then in Vercel → Project → **Settings** → copy:
+   - `VERCEL_ORG_ID` → GitHub secret `VERCEL_ORG_ID`
+   - `VERCEL_PROJECT_ID` → GitHub secret `VERCEL_PROJECT_ID`
 
-## Optional environment variable
-
-Breach simulator uses Have I Been Pwned (optional):
-
-| Name | Where |
-|------|--------|
-| `NEXT_PUBLIC_HIBP_API_KEY` | Vercel → Project → **Settings** → **Environment Variables** |
-
-Without it, breach features may be limited; the rest of the app still works.
+4. Push to `main` — workflow `.github/workflows/vercel-deploy.yml` deploys automatically.
 
 ---
 
-## Troubleshooting
+## Custom domain `ደህንነት.com`
 
-- **Build fails on Vercel:** Set **Root Directory** to `.` (repo root, where `package.json` lives).
-- **Vercel CLI login error (certificate):** Use the **web dashboard** (steps above) instead of `vercel login` in the terminal.
+Buy the IDN domain from a registrar, then Vercel → **Domains** → add DNS records.

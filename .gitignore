@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# legacy local folder (app moved to repo root)
+/cyber-app/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
